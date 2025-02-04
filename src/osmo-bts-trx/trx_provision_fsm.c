@@ -428,6 +428,8 @@ static void st_open_poweroff(struct osmo_fsm_inst *fi, uint32_t event, void *dat
 		break;
 	case TRX_PROV_EV_CFG_ARFCN:
 		arfcn = (uint16_t)(intptr_t)data;
+		if (pinst->trx->bts->band == GSM_BAND_1900)
+        arfcn |= ARFCN_PCS;
 		if (l1h->config.arfcn != arfcn || !l1h->config.arfcn_valid) {
 			l1h->config.arfcn = arfcn;
 			l1h->config.arfcn_valid = true;
